@@ -9,19 +9,59 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AnimatedPage from "@/components/animate-page";
 import { Loader2 } from "lucide-react";
-// import { ModeToggle } from "@/components/mode-toggle";
+import { toast } from "sonner";
+
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  // const { toast } = useToast();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function onSubmit(e: any) {
-    e.preventDefault();
+  async function onSubmit() {
+    // e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await axios.post("sua_url_de_login", {
+        email: email,
+        password: password,
+      });
+
+      console.log(response.data); // apenas para debug, você pode fazer o que for necessário com a resposta da API
+    } catch (error: any) {
+      if (error.response) {
+        // O servidor respondeu com um status de erro (fora do intervalo 2xx)
+        console.log(error.response.data);
+
+        setErrorMessage("Por favor, tente novamente mais tarde."); // ajuste conforme o formato da resposta da sua API
+        toast.error("Erro desconhecido", {
+          description: "Por favor, tente novamente mais tarde.",
+
+          action: {
+            label: "Fechar",
+            onClick: () => console.log("Undo"),
+          },
+        });
+      } else if (error.request) {
+        // A solicitação foi feita, mas não houve resposta do servidor
+        console.log(error.request);
+        setErrorMessage(
+          "Erro ao tentar se conectar ao servidor. Por favor, tente novamente mais tarde."
+        );
+      } else {
+        // Algo aconteceu ao configurar a solicitação que acionou um erro
+        console.log("Error", error.message);
+        setErrorMessage(
+          "Erro desconhecido. Por favor, tente novamente mais tarde."
+        );
+      }
+    } finally {
       setLoading(false);
-    }, 3000);
+    }
   }
   function NavToCreateAccount() {
     navigate("/create-account");
@@ -37,7 +77,7 @@ const Login = () => {
           </h1>
           <form
             className="flex flex-col items-start mb-[2.688rem]"
-            onSubmit={(e) => onSubmit(e)}
+            // onSubmit={(e) => onSubmit(e)}
           >
             <Label
               htmlFor="email"
@@ -49,6 +89,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               className="rounded-[6px] border-none mb-[1.25rem] bg-secondary placeholder:text-[#A1A0A0] text-[1.125rem] font-normal leading-[1.313rem]"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Label
               htmlFor="Senha"
@@ -60,16 +101,18 @@ const Login = () => {
               type="password"
               placeholder="Senha"
               className="rounded-[6px] border-none mb-[1.75rem] bg-secondary placeholder:text-[#A1A0A0] text-[1.125rem] font-normal leading-[1.313rem]"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Link to="/reset-password" className="underline mb-[2.5rem]">
               Esqueci minha senha
             </Link>
             <Button
-              type="submit"
+              type="button"
               className="text-[1.125rem] font-normal leading-[1.313rem]"
               size={"lg"}
               variant={"default"}
               disabled={loading}
+              onClick={onSubmit}
             >
               {loading ? (
                 <Loader2 className=" h-4 w-4 animate-spin" />

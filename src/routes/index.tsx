@@ -27,11 +27,25 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   }
   return children;
 };
+const PublicRoute = ({ children }: { children: JSX.Element }) => {
+  if (isAuthenticated()) {
+    // Redireciona para a página de login se não estiver autenticado
+    return <Navigate to="/" />;
+  }
+  return children;
+};
 
 const RoutesConfig = () => (
   <Router>
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
       <Route path="/create-account" element={<CreateAccount />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route
