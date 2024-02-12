@@ -1,14 +1,15 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
+import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
-const manifestForPlugin = {
+const manifestForPlugin: Partial<VitePWAOptions> = {
   registerType: "prompt",
-  includeAssets: ["favicon.ico"],
+  includeAssets: ["vite.svg"],
   manifest: {
     short_name: "ICNV Queimados",
     name: "ICVN Queimados",
+    description: "",
     icons: [
       {
         src: "vite.svg",
