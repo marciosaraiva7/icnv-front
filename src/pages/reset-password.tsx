@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -19,6 +20,15 @@ const ResetPassword = () => {
   function onSubmit() {
     setLoading(true);
     setTimeout(() => {
+      toast.success("Email enviado", {
+        description:
+          "Acesse seu e-mail para encontrar sua nova senha temporaria.",
+
+        action: {
+          label: "Fechar",
+          onClick: () => console.log("Undo"),
+        },
+      });
       setLoading(false);
     }, 3000);
   }

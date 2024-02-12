@@ -18,26 +18,24 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  // const { toast } = useToast();
-
+  const URL = import.meta.env.BASE_URL;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function onSubmit() {
     // e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("sua_url_de_login", {
+      const response = await axios.post(URL + "/api/login", {
         email: email,
         password: password,
       });
 
-      console.log(response.data); // apenas para debug, você pode fazer o que for necessário com a resposta da API
+      console.log(response.data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response) {
         // O servidor respondeu com um status de erro (fora do intervalo 2xx)
         console.log(error.response.data);
 
-        setErrorMessage("Por favor, tente novamente mais tarde."); // ajuste conforme o formato da resposta da sua API
         toast.error("Erro desconhecido", {
           description: "Por favor, tente novamente mais tarde.",
 
@@ -49,15 +47,9 @@ const Login = () => {
       } else if (error.request) {
         // A solicitação foi feita, mas não houve resposta do servidor
         console.log(error.request);
-        setErrorMessage(
-          "Erro ao tentar se conectar ao servidor. Por favor, tente novamente mais tarde."
-        );
       } else {
         // Algo aconteceu ao configurar a solicitação que acionou um erro
         console.log("Error", error.message);
-        setErrorMessage(
-          "Erro desconhecido. Por favor, tente novamente mais tarde."
-        );
       }
     } finally {
       setLoading(false);
