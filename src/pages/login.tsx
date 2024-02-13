@@ -23,10 +23,13 @@ const Login = () => {
     // e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://icnv-backend.onrender.com/api/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
 
       localStorage.setItem("token", response.data);
       navigate("/");
