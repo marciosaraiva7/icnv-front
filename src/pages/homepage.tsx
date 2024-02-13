@@ -3,6 +3,11 @@ import { jwtDecode } from "jwt-decode";
 import useImageBuffer from "@/hooks/useImageBuffer";
 import axios from "../../axiosConfig";
 
+type decodedTokenType = {
+  username: string;
+  id: string;
+};
+
 const Home = () => {
   const [name, setName] = useState("");
   const [imageData, setImageData] = useState("");
@@ -12,8 +17,10 @@ const Home = () => {
       try {
         // Fetching user's name
         const token = localStorage.getItem("token");
-        const decodedToken = token ? jwtDecode(token) : null;
-        setName(decodedToken?.username);
+        const decodedToken: decodedTokenType | null = token
+          ? jwtDecode(token)
+          : null;
+        setName(decodedToken?.username as string);
         const idUser = decodedToken?.id;
         // Fetching user's profile image
         const imageResponse = await axios.get(`profileImage/${idUser}`, {
