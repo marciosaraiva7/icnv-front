@@ -28,7 +28,6 @@ const Login = () => {
         password: password,
       });
 
-      console.log(response.data);
       localStorage.setItem("token", response.data);
       navigate("/");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,9 +47,25 @@ const Login = () => {
       } else if (error.request) {
         // A solicitação foi feita, mas não houve resposta do servidor
         console.log(error.request);
+        toast.error("Erro desconhecido", {
+          description: "Por favor, tente novamente mais tarde.",
+
+          action: {
+            label: "Fechar",
+            onClick: () => console.log("Undo"),
+          },
+        });
       } else {
         // Algo aconteceu ao configurar a solicitação que acionou um erro
         console.log("Error", error.message);
+        toast.error("Erro desconhecido", {
+          description: "Por favor, tente novamente mais tarde.",
+
+          action: {
+            label: "Fechar",
+            onClick: () => console.log("Undo"),
+          },
+        });
       }
     } finally {
       setLoading(false);
