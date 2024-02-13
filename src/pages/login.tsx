@@ -11,7 +11,7 @@ import AnimatedPage from "@/components/animate-page";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-import axios from "../../axiosConfig";
+// import axios from "../../axiosConfig";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,54 +22,35 @@ const Login = () => {
   async function onSubmit() {
     // e.preventDefault();
     setLoading(true);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: password }),
+    };
     try {
-      const response = await axios.post(
+      const response = await fetch(
         "https://icnv-backend.onrender.com/api/login",
-        {
-          email: email,
-          password: password,
-        }
+        requestOptions
       );
-
-      localStorage.setItem("token", response.data);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
       navigate("/");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      if (error.response) {
-        // O servidor respondeu com um status de erro (fora do intervalo 2xx)
-        console.log(error.response.data);
+      console.error("Houve um erro na requisição:", error);
+      // O servidor respondeu com um status de erro (fora do intervalo 2xx)
 
-        toast.error("Erro desconhecido", {
-          description: "Por favor, tente novamente mais tarde.",
+      toast.error("Erro desconhecido", {
+        description: "Por favor, tente novamente mais tarde.",
 
-          action: {
-            label: "Fechar",
-            onClick: () => console.log("Undo"),
-          },
-        });
-      } else if (error.request) {
-        // A solicitação foi feita, mas não houve resposta do servidor
-        console.log(error.request);
-        toast.error("Erro desconhecido", {
-          description: "Por favor, tente novamente mais tarde.",
-
-          action: {
-            label: "Fechar",
-            onClick: () => console.log("Undo"),
-          },
-        });
-      } else {
-        // Algo aconteceu ao configurar a solicitação que acionou um erro
-        console.log("Error", error.message);
-        toast.error("Erro desconhecido", {
-          description: "Por favor, tente novamente mais tarde.",
-
-          action: {
-            label: "Fechar",
-            onClick: () => console.log("Undo"),
-          },
-        });
-      }
+        action: {
+          label: "Fechar",
+          onClick: () => console.log("Undo"),
+        },
+      });
     } finally {
       setLoading(false);
     }
