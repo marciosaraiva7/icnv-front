@@ -11,25 +11,26 @@ import AnimatedPage from "@/components/animate-page";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-import axios from "axios";
+import axios from "../../axiosConfig";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const URL = import.meta.env.BASE_URL;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function onSubmit() {
     // e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(URL + "/api/login", {
+      const response = await axios.post("/login", {
         email: email,
         password: password,
       });
 
       console.log(response.data);
+      localStorage.setItem("token", response.data);
+      navigate("/");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response) {
