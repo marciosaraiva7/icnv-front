@@ -3,6 +3,9 @@ import { jwtDecode } from "jwt-decode";
 import useImageBuffer from "@/hooks/useImageBuffer";
 import axios from "../../axiosConfig";
 
+import { AvatarProfile } from "@/components/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
+
 type decodedTokenType = {
   username: string;
   id: string;
@@ -11,9 +14,11 @@ type decodedTokenType = {
 const Home = () => {
   const [name, setName] = useState("");
   const [imageData, setImageData] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         // Fetching user's name
         const token = localStorage.getItem("token");
@@ -31,6 +36,8 @@ const Home = () => {
         setImageData(`data:image/jpeg;base64,${base64Image}`);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -38,10 +45,26 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <p>Home</p>
-      <p>Olá, {name}</p>
-      {imageData && <img src={imageData} alt="User profile" />}
+    <div className="p-[3rem] ">
+      <div className="flex gap-[1rem]">
+        {!loading ? (
+          <>
+            <AvatarProfile image={imageData} name={name} />
+            <div>
+              <p className="text-[0.8rem] font-bold">Bem vindo!</p>
+              <p className="text-[1.2rem]">{name}</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <Skeleton className="h-10 w-10 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-4 w-[250px]" />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
