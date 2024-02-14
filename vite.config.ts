@@ -28,9 +28,9 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
 
 export default defineConfig({
   plugins: [react(), VitePWA(manifestForPlugin)],
-  build: {
-    outDir: "./build-directory",
-  },
+  // build: {
+  //   outDir: "./build-directory",
+  // },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
