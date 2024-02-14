@@ -26,7 +26,7 @@ const Login = () => {
     };
     try {
       const response = await fetch(
-        "https://icnv-backend.onrender.com/api/login",
+        "https://icnv-backend.onrender.com/api/teste",
         requestOptions
       );
       if (!response.ok) {
