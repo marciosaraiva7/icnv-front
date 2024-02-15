@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import useImageBuffer from "@/hooks/useImageBuffer";
 import axios from "../../axiosConfig";
+import { Link } from "react-router-dom";
 
 import { AvatarProfile } from "@/components/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { CalendarDays, Send, Youtube, DollarSign } from "lucide-react";
+import { MenuButton } from "@/components/menu";
 
 type decodedTokenType = {
   username: string;
@@ -45,26 +49,63 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-[3rem] ">
-      <div className="flex gap-[1rem]">
-        {!loading ? (
-          <>
-            <AvatarProfile image={imageData} name={name} />
-            <div>
-              <p className="text-[0.8rem] font-bold">Bem vindo!</p>
-              <p className="text-[1.2rem]">{name}</p>
-            </div>
-          </>
-        ) : (
-          <>
-            <Skeleton className="h-10 w-10 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-[100px]" />
-              <Skeleton className="h-4 w-[250px]" />
-            </div>
-          </>
-        )}
+    <div>
+      <div className="px-[1rem] pt-[3rem] mb-[2rem] flex justify-between ">
+        <div className="flex gap-[1rem] items-center">
+          {!loading ? (
+            <>
+              <AvatarProfile image={imageData} name={name} />
+              <div className="flex flex-col gap-1">
+                <p className="text-[0.9rem] leading-5 font-bold">Bem vindo!</p>
+                <p className="text-[1.2rem] leading-5 font-medium">{name}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <Skeleton className="h-10 w-10 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[100px]" />
+                <Skeleton className="h-4 w-[250px]" />
+              </div>
+            </>
+          )}
+        </div>
+        <div className="flex gap-[0.5rem]">
+          <Button variant="ghost" size="icon">
+            <CalendarDays className="h-9 w-8" />
+          </Button>
+          <MenuButton />
+        </div>
       </div>
+      <div className="flex px-[1rem] gap-[1rem]">
+        <Button
+          variant={"ghost"}
+          className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem] py-4"
+        >
+          <Send className="h-6 w-8" />
+          <span className="text-[0.8rem] font-light">Telegram </span>
+        </Button>
+        <Link to="https://www.youtube.com/@icnvqueimados2380">
+          <Button
+            variant={"ghost"}
+            className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem]"
+          >
+            <Youtube className="h-6 w-8" />
+            <span className="text-[0.8rem] font-light">Youtube </span>
+          </Button>
+        </Link>
+        <Button
+          variant={"ghost"}
+          className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem]"
+        >
+          <DollarSign className="h-6 w-8" />
+          <span className="text-[0.8rem] font-light">Dízimo </span>
+        </Button>
+      </div>
+      <div className="pt-[2rem] pl-[1rem] mb-2">
+        <p className="text-[0.8rem] font-light opacity-70">PRÓXIMOS EVENTOS</p>
+      </div>
+      <div className=""></div>
     </div>
   );
 };

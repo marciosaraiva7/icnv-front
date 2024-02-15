@@ -8,7 +8,7 @@ interface AvatarProps {
 export function AvatarProfile({ image, name }: AvatarProps) {
   const initialName = useInitialsName(name);
   return (
-    <Avatar>
+    <Avatar className="w-14 h-14">
       <AvatarImage src={image} alt="User profile" />
       <AvatarFallback>{initialName}</AvatarFallback>
     </Avatar>
