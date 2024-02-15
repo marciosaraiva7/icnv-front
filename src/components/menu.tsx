@@ -1,4 +1,4 @@
-import { Menu, Plus, Settings, User, SunMoon } from "lucide-react";
+import { Menu, Plus, Settings, User, SunMoon, LogOut } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -47,7 +47,7 @@ export function MenuButton() {
             <span className="text-[1rem]">Mudar Tema</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={SignOut}>
-            <SunMoon className="mr-2 h-4 w-4" />
+            <LogOut className="mr-2 h-4 w-4" />
             <span className="text-[1rem]">Sair</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
