@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, Send, Youtube, DollarSign } from "lucide-react";
 import { MenuButton } from "@/components/menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type decodedTokenType = {
   username: string;
@@ -105,7 +106,14 @@ const Home = () => {
       <div className="pt-[2rem] pl-[1rem] mb-2">
         <p className="text-[0.8rem] font-light opacity-70">PRÓXIMOS EVENTOS</p>
       </div>
-      <div className=""></div>
+      <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+        Jokester began sneaking into the castle in the middle of the night and
+        leaving jokes all over the place: under the king's pillow, in his soup,
+        even in the royal toilet. The king was furious, but he couldn't seem to
+        stop Jokester. And then, one day, the people of the kingdom discovered
+        that the jokes left by Jokester were so funny that they couldn't help
+        but laugh. And once they started laughing, they couldn't stop.
+      </ScrollArea>
     </div>
   );
 };

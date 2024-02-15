@@ -47,8 +47,8 @@ export function MenuButton() {
             <span className="text-[1rem]">Mudar Tema</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={SignOut}>
-            <LogOut className="mr-2 h-4 w-4" />
-            <span className="text-[1rem]">Sair</span>
+            <LogOut className="mr-2 h-4 w-4 text-red-700" />
+            <span className="text-[1rem] text-red-700">Sair</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
