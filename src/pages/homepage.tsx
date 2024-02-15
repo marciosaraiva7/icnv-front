@@ -49,7 +49,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="pt-[2rem]">
       <div className="px-[1rem] pt-[3rem] mb-[2rem] flex justify-between ">
         <div className="flex gap-[1rem] items-center">
           {!loading ? (
