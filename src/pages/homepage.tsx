@@ -106,14 +106,25 @@ const Home = () => {
       <div className="pt-[2rem] pl-[1rem] mb-2">
         <p className="text-[0.8rem] font-light opacity-70">PRÓXIMOS EVENTOS</p>
       </div>
-      <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
-        Jokester began sneaking into the castle in the middle of the night and
-        leaving jokes all over the place: under the king's pillow, in his soup,
-        even in the royal toilet. The king was furious, but he couldn't seem to
-        stop Jokester. And then, one day, the people of the kingdom discovered
-        that the jokes left by Jokester were so funny that they couldn't help
-        but laugh. And once they started laughing, they couldn't stop.
-      </ScrollArea>
+      {!loading ? (
+        <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+          Jokester began sneaking into the castle in the middle of the night and
+          leaving jokes all over the place: under the king's pillow, in his
+          soup, even in the royal toilet. The king was furious, but he couldn't
+          seem to stop Jokester. And then, one day, the people of the kingdom
+          discovered that the jokes left by Jokester were so funny that they
+          couldn't help but laugh. And once they started laughing, they couldn't
+          stop.
+        </ScrollArea>
+      ) : (
+        <div className="flex flex-col space-y-3">
+          <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
