@@ -12,6 +12,9 @@ import { useTheme } from "@/components/theme-provider";
 
 export function MenuButton() {
   const { setTheme, theme } = useTheme();
+  function SignOut() {
+    localStorage.removeItem("token");
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,6 +39,10 @@ export function MenuButton() {
           <DropdownMenuItem
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           >
+            <SunMoon className="mr-2 h-4 w-4" />
+            <span className="text-[1rem]">Mudar Tema</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={SignOut}>
             <SunMoon className="mr-2 h-4 w-4" />
             <span className="text-[1rem]">Mudar Tema</span>
           </DropdownMenuItem>
