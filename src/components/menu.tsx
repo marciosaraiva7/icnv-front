@@ -10,10 +10,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
 
+import { useNavigate } from "react-router-dom";
+
 export function MenuButton() {
   const { setTheme, theme } = useTheme();
+  const navigate = useNavigate();
   function SignOut() {
     localStorage.removeItem("token");
+    navigate("/");
   }
   return (
     <DropdownMenu>
@@ -44,7 +48,7 @@ export function MenuButton() {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={SignOut}>
             <SunMoon className="mr-2 h-4 w-4" />
-            <span className="text-[1rem]">Mudar Tema</span>
+            <span className="text-[1rem]">Sair</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
