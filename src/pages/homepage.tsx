@@ -78,36 +78,46 @@ const Home = () => {
           <MenuButton />
         </div>
       </div>
-      <div className="flex px-[1rem] gap-[1rem]">
-        <Button
-          variant={"ghost"}
-          className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem] py-4"
-        >
-          <Send className="h-6 w-8" />
-          <span className="text-[0.8rem] font-light">Telegram </span>
-        </Button>
-        <Link to="https://www.youtube.com/@icnvqueimados2380">
-          <Button
-            variant={"ghost"}
-            className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem]"
-          >
-            <Youtube className="h-6 w-8" />
-            <span className="text-[0.8rem] font-light">Youtube </span>
-          </Button>
-        </Link>
-        <Button
-          variant={"ghost"}
-          className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem]"
-        >
-          <DollarSign className="h-6 w-8" />
-          <span className="text-[0.8rem] font-light">Dízimo </span>
-        </Button>
-      </div>
-      <div className="pt-[2rem] pl-[1rem] mb-2">
-        <p className="text-[0.8rem] font-light opacity-70">PRÓXIMOS EVENTOS</p>
-      </div>
       {!loading ? (
-        <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+        <>
+          <div className="flex px-[1rem] gap-[1rem]">
+            <Button
+              variant={"ghost"}
+              className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem] py-4"
+            >
+              <Send className="h-6 w-8" />
+              <span className="text-[0.8rem] font-light">Telegram </span>
+            </Button>
+            <Link to="https://www.youtube.com/@icnvqueimados2380">
+              <Button
+                variant={"ghost"}
+                className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem]"
+              >
+                <Youtube className="h-6 w-8" />
+                <span className="text-[0.8rem] font-light">Youtube </span>
+              </Button>
+            </Link>
+            <Button
+              variant={"ghost"}
+              className="flex flex-col gap-[1rem] h-24 bg-primary-foreground w-[5.75rem]"
+            >
+              <DollarSign className="h-6 w-8" />
+              <span className="text-[0.8rem] font-light">Dízimo </span>
+            </Button>
+          </div>
+          <div className="pt-[2rem] pl-[1rem] mb-2">
+            <p className="text-[0.8rem] font-light opacity-70">
+              PRÓXIMOS EVENTOS
+            </p>
+          </div>
+        </>
+      ) : (
+        <div>
+          <Skeleton className="w-[5.75rem] h-24" />
+        </div>
+      )}
+      {!loading ? (
+        <ScrollArea className="h-full  w-full rounded-md  p-4">
           Jokester began sneaking into the castle in the middle of the night and
           leaving jokes all over the place: under the king's pillow, in his
           soup, even in the royal toilet. The king was furious, but he couldn't
@@ -117,7 +127,7 @@ const Home = () => {
           stop.
         </ScrollArea>
       ) : (
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 pl-[1rem]">
           <Skeleton className="h-[125px] w-[250px] rounded-xl" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[250px]" />
